@@ -95,10 +95,14 @@ This project is a rule engine that determines user eligibility based on a set of
    ```bash
    git clone https://github.com/alakhdubey72/rule-engine-ast.git
 
-Project Structure
-├── app.py               # Main application file
-├── ast.py               # AST-related functions
-├── database.py          # Database connection logic
-├── tests/               # Test cases
-├── README.md            # Documentation
+rule-engine-ast
+├── src
+├── tests
+├── venv
+│   ├── Include
+│   ├── Lib
+│   └── Scripts
+├── README.md
+└── .gitignore
+
 
