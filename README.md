@@ -1,108 +1,154 @@
-Rule Engine with Abstract Syntax Tree (AST)
-
+**Rule Engine with Abstract Syntax Tree (AST)**
 This project is a simple rule engine designed to evaluate user eligibility based on a set of dynamic rules. The rules are represented using an Abstract Syntax Tree (AST) that allows for conditional checks on attributes like age, department, salary, and experience. The engine supports creating, combining, and evaluating rules against user data.
 
-Features of Project:
-- Dynamic rule creation using Abstract Syntax Trees (AST)
-- Combine multiple rules efficiently
-- Evaluate rules based on user data
-- Supports logical operators (AND, OR) and conditions (>, <, =)
+**Features of the Project:**
+Dynamic rule creation using Abstract Syntax Trees (AST)
+Combine multiple rules efficiently
+Evaluate rules based on user data
+Supports logical operators (AND, OR) and conditions (>, <, =)
 
-  ## Table of Contents
-1. [Installation](#installation)
-2. [Usage](#usage)
-3. [API Endpoints](#api-endpoints)
-4. [Project Structure](#project-structure)
-5. [Contributing](#contributing)
+**Table of Contents**
+Installation
+Usage
+API Endpoints
+Project Structure
+Testing
+Contributing
 
-## Installation
+**Installation**
+Clone the repository:
 
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/username/rule-engine-ast.git
-   ```
+bash
+git clone https://github.com/AlakhDubey/rule-engine-ast.git
+Navigate into the project directory:
 
-2. Navigate into the project directory:
-   ```bash
-   cd rule-engine-ast
-   ```
+bash
+cd rule-engine-ast
+Set up a virtual environment (optional but recommended):
 
-3. Set up a virtual environment (optional but recommended):
-   ```bash
-   python -m venv venv
-   source venv/bin/activate  # On Windows, use `venv\Scripts\activate`
-   ```
+bash
+python -m venv venv
+Activate the virtual environment:
 
-4. Install dependencies:
-   ```bash
-   pip install -r requirements.txt
-   ```
+Windows:
 
-5. Start the application:
-   ```bash
-   python app.py
-   ```
+bash
+venv\Scripts\activate
+Mac/Linux:
 
-6. If using Docker, run:
-   ```bash
-   docker-compose up --build
-   ```
-## Usage
+bash
+source venv/bin/activate
+Install dependencies:
 
-You can interact with the rule engine using the following API endpoints:
+bash
+pip install -r requirements.txt
 
-- **Create a Rule**: POST `/api/create_rule`
-  - **Example**:
-    ```bash
-    curl -X POST -H "Content-Type: application/json" -d '{"rule": "age > 30"}' http://localhost:5000/api/create_rule
-    ```
+**Usage
+** 
+To start the application, you can use the following commands:
 
-- **Evaluate a Rule**: POST `/api/evaluate_rule`
-  - **Example**:
-    ```bash
-    curl -X POST -H "Content-Type: application/json" -d '{"rule": "age > 30", "data": {"age": 35}}' http://localhost:5000/api/evaluate_rule
-    ```
+Start the Flask API:
 
-Sample usage for the `create_rule` function:
-```python
-from rule_engine import create_rule
+bash
+export FLASK_APP=src/api/app.py  # For Mac/Linux
+set FLASK_APP=src/api/app.py     # For Windows
 
-rule = create_rule("age > 30 AND salary > 50000")
-print(rule)  # Outputs the AST representation of the rule
+flask run
+The application will be available at http://localhost:5000.
 
-## License
+**API Endpoints
+**
+1. Create a Rule: POST /api/create_rule
+This endpoint allows you to create a rule using an AST.
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+Request Body:
 
-## Contact
+json
+{
+  "rule": "age > 30"
+}
+Example Usage:
 
-For support or any questions, reach out to `alakhdubey72@gmail.com`.
+bash
+curl -X POST -H "Content-Type: application/json" -d '{"rule": "age > 30"}' http://localhost:5000/api/create_rule
+Response:
 
-# Rule Engine with AST
+json
+{
+  "message": "Rule created",
+  "ast": {
+    "type": "operator",
+    "value": "age > 30"
+  }
+}
+2. Evaluate a Rule: POST /api/evaluate_rule
+This endpoint evaluates a rule against the provided data.
 
-## Description
-This project is a rule engine that determines user eligibility based on a set of dynamic conditions. The rules are built using Abstract Syntax Trees (AST), allowing for flexibility in defining and evaluating rules based on user attributes like age, department, salary, and experience.
+Request Body:
 
-## Features
-- Dynamic rule creation using AST
-- Combine and evaluate rules
-- Supports logical operators like AND, OR
-- Simple API for rule creation and evaluation
+json
+{
+  "rule": "age > 30",
+  "data": {
+    "age": 35
+  }
+}
+Example Usage:
 
-## Installation
+bash
+curl -X POST -H "Content-Type: application/json" -d '{"rule": "age > 30", "data": {"age": 35}}' http://localhost:5000/api/evaluate_rule
+Response:
 
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/alakhdubey72/rule-engine-ast.git
+json
+{
+  "result": true
+}
 
-rule-engine-ast
+**Project Structure
+** Here's the layout of the project directory:
+
+bash
+rule-engine-ast/
 ├── src
-├── tests
-├── venv
-│   ├── Include
-│   ├── Lib
-│   └── Scripts
-├── README.md
-└── .gitignore
+│   ├── ast/
+│   │   └── ast.py         # AST logic for rule creation and evaluation
+│   ├── api/
+│   │   └── app.py         # Flask API for creating and evaluating rules
+│   └── database/
+│       └── db.py          # Database logic for storing rules
+├── tests/
+│   ├── test_ast.py        # Unit tests for AST logic
+│   └── test_api.py        # Unit tests for API endpoints
+├── venv/                  # Virtual environment (not included in Git)
+├── README.md              # Project documentation
+└── .gitignore             # Git ignore file
 
+Testing
+To run the unit tests for both the AST and API logic:
 
+Run all tests using unittest:
+
+bash
+python -m unittest discover -s tests
+Example Output:
+
+bash
+Ran 5 tests in 0.005s
+
+OK
+
+**Contributing
+**
+Contributions are welcome! To contribute, follow these steps:
+
+Fork the repository.
+Create a new branch (git checkout -b feature-branch).
+Make your changes and commit them (git commit -m 'Add new feature').
+Push to the branch (git push origin feature-branch).
+Open a pull request.
+
+**License
+**This project is licensed under the MIT License - see the LICENSE file for details.
+
+Contact
+For support or any questions, reach out to alakhdubey72@gmail.com.
